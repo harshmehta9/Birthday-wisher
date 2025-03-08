@@ -1,16 +1,44 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams, Navigate } from 'react-router-dom';
-import { Cake, Heart, Stars, Sparkles } from 'lucide-react';
+import { Cake, Heart, Stars, Sparkles, Copy, ArrowRight } from 'lucide-react';
 
 function Home() {
   const navigate = useNavigate();
   const [name, setName] = React.useState('');
   const [from, setFrom] = React.useState('');
+  const [cardLink, setCardLink] = React.useState('');
+  const [copySuccess, setCopySuccess] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim() && from.trim()) {
-      navigate(`/${encodeURIComponent(name.trim())}/${encodeURIComponent(from.trim())}`);
+      const encodedName = encodeURIComponent(name.trim());
+      const encodedFrom = encodeURIComponent(from.trim());
+      
+      // Generate the full URL with the base domain
+      const fullUrl = `https://birthday-wisher-two.vercel.app/${encodedName}/${encodedFrom}`;
+      setCardLink(fullUrl);
+    }
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(cardLink);
+      setCopySuccess(true);
+      
+      // Reset the success message after 3 seconds
+      setTimeout(() => {
+        setCopySuccess(false);
+      }, 3000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
+  const goToCard = () => {
+    if (cardLink) {
+      const localPath = `/${encodeURIComponent(name.trim())}/${encodeURIComponent(from.trim())}`;
+      navigate(localPath);
     }
   };
 
@@ -58,6 +86,34 @@ function Home() {
             Create Birthday Card
           </button>
         </form>
+
+        {cardLink && (
+          <div className="mt-6 space-y-4 animate-fade-in">
+            <div className="bg-purple-50 p-3 rounded-lg border border-purple-200 relative">
+              <p className="text-sm text-purple-800 pr-8 break-all">{cardLink}</p>
+              <button 
+                onClick={copyToClipboard}
+                className="absolute right-2 top-2 p-1 hover:bg-purple-100 rounded-md transition-colors"
+                title="Copy to clipboard"
+              >
+                <Copy className="h-4 w-4 text-purple-600" />
+              </button>
+            </div>
+            
+            {copySuccess && (
+              <p className="text-xs text-green-600 text-center">
+                ✓ Link copied to clipboard!
+              </p>
+            )}
+            
+            <button
+              onClick={goToCard}
+              className="w-full bg-purple-100 text-purple-700 py-2 px-4 rounded-lg hover:bg-purple-200 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              Go to Card <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
