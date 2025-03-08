@@ -79,7 +79,7 @@ function BirthdayCard() {
     <div className="min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center p-4">
       <div className="perspective-3d w-full max-w-md">
         <div
-          className={`relative aspect-[3/4] cursor-pointer transition-transform duration-700 preserve-3d ${
+          className={`relative md:aspect-[3/4] min-h-[500px] cursor-pointer transition-transform duration-700 preserve-3d ${
             isFlipped ? 'rotate-y-180' : ''
           }`}
           onClick={() => setIsFlipped(!isFlipped)}
@@ -118,32 +118,32 @@ function BirthdayCard() {
 
           {/* Back of the card */}
           <div className="absolute inset-0 backface-hidden rotate-y-180">
-            <div className="bg-gradient-to-br from-purple-600 to-purple-800 text-white rounded-2xl card-shadow h-full p-8">
+            <div className="bg-gradient-to-br from-purple-600 to-purple-800 text-white rounded-2xl card-shadow h-full p-8 overflow-y-auto">
               <div className="card-inner flex flex-col h-full relative">
                 <div className="absolute top-4 right-4">
                   <Heart className="h-6 w-6 text-pink-300 animate-pulse" />
                 </div>
                 
-                <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8">
-                  <Heart className="h-20 w-20 text-pink-300 animate-heartbeat" />
+                <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4 sm:space-y-8">
+                  <Heart className="h-16 w-16 sm:h-20 sm:w-20 text-pink-300 animate-heartbeat" />
                   
-                  <div className="space-y-6 max-w-sm">
-                    <p className="text-3xl font-semibold animate-fade-in">
+                  <div className="space-y-3 sm:space-y-6 max-w-sm">
+                    <p className="text-2xl sm:text-3xl font-semibold animate-fade-in">
                       Dear <span className="capitalize">{decodedName}</span>,
                     </p>
-                    <p className="text-xl leading-relaxed animate-fade-in">
+                    <p className="text-lg sm:text-xl leading-tight sm:leading-relaxed animate-fade-in">
                       On your special day, I wish you endless joy, love, and laughter! May this year bring you amazing opportunities and beautiful moments.
                     </p>
-                    <p className="text-xl leading-relaxed animate-fade-in">
+                    <p className="text-lg sm:text-xl leading-tight sm:leading-relaxed animate-fade-in">
                       Keep shining bright and spreading your wonderful energy everywhere you go! 🎉
                     </p>
                   </div>
                 </div>
 
-                <div className="w-full pt-6 mt-6 border-t border-purple-400/30">
+                <div className="w-full pt-3 mt-3 sm:pt-6 sm:mt-6 border-t border-purple-400/30">
                   <div className="text-center animate-fade-in">
-                    <p className="text-lg text-purple-200">With love and best wishes,</p>
-                    <p className="text-3xl font-bold mt-2 capitalize text-pink-300">{decodedFrom}</p>
+                    <p className="text-base sm:text-lg text-purple-200">With love and best wishes,</p>
+                    <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2 capitalize text-pink-300">{decodedFrom}</p>
                   </div>
                 </div>
 
