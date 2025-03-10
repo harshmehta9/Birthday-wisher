@@ -15,7 +15,6 @@ function Home() {
       const encodedName = encodeURIComponent(name.trim());
       const encodedFrom = encodeURIComponent(from.trim());
       
-      // Generate the full URL with the base domain
       const fullUrl = `https://birthday-wisher-two.vercel.app/${encodedName}/${encodedFrom}`;
       setCardLink(fullUrl);
     }
